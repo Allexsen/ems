@@ -3,7 +3,6 @@ package connection // Establish connection to the database
 import (
 	"database/sql"
 	"fmt"
-	"os"
 	"strconv"
 	"time"
 
@@ -23,7 +22,7 @@ type Conns struct { // Connection params
 }
 
 func log(msg string) { // Log DB msgs
-	fmt.Println("[DB]:" + msg + "..")
+	fmt.Println("[MySQL]: " + msg)
 }
 
 func ConnectDB(mc uint, mo uint, mi uint, mlt uint) { // Connect to Database, set DB params
@@ -32,9 +31,11 @@ func ConnectDB(mc uint, mo uint, mi uint, mlt uint) { // Connect to Database, se
 	ConnParams.MaxIdle = mi
 	ConnParams.MaxLifeTimeMins = mlt
 
-	user := os.Getenv("SQL_USER")
-	pswd := os.Getenv("SQL_PSWD")
-	msn := user + ":" + pswd + "@/sql_ems"
+	// user := os.Getenv("SQL_USER")
+	// pswd := os.Getenv("SQL_PSWD")
+	adrs := "tcp(127.0.0.1:3306)"
+	// msn := user + ":" + pswd + "@" + adrs + "/sql_ems"
+	msn := "root:18001017853ASd!@tcp(127.0.0.1:3306)/sql_ems"
 
 	d, err := sql.Open("mysql", msn)
 	if err != nil {
@@ -43,12 +44,12 @@ func ConnectDB(mc uint, mo uint, mi uint, mlt uint) { // Connect to Database, se
 
 	defer func() {
 		db.Close()
-		log("Disconnected successfully")
+		log("Closed & disconnected successfully..")
 	}()
 
-	log("Connection established successfully")
-
 	db = d
+	log("Connection established successfully at " + adrs)
+
 	// Set & Log DB settings
 	db.SetConnMaxLifetime(time.Minute * time.Duration(ConnParams.MaxLifeTimeMins))
 	SetMaxOpenConns(ConnParams.MaxOpen)
@@ -62,13 +63,13 @@ func GetDB() *sql.DB { // return DB instance
 
 func SetMaxOpenConns(maxOpenConns uint) { // Set maximum allowed open connections
 	if maxOpenConns > ConnParams.MaxConns { // Check if requested amount > max conns allowed, limit if so
-		log("MaxConn: Invalid amount - limiting to" + strconv.Itoa(int(ConnParams.MaxConns)))
+		log("MaxConn: Invalid amount - limiting to " + strconv.Itoa(int(ConnParams.MaxConns)))
 		maxOpenConns = ConnParams.MaxConns
 	}
 
 	ConnParams.MaxOpen = maxOpenConns
 	MO := int(maxOpenConns)
-	log("Changing allowed MaxOpenConns to" + strconv.Itoa(MO))
+	log("Changing allowed MaxOpenConns to " + strconv.Itoa(MO))
 	db.SetMaxOpenConns(MO)
 
 	if ConnParams.MaxOpen < ConnParams.MaxIdle { // Check if MaxIdle > MaxOpen, limit if so
@@ -81,17 +82,18 @@ func SetMaxIdleConns(maxIdleConns uint) { // Set maximum allowed idle connection
 	if maxIdleConns > ConnParams.MaxOpen { // Check if requested amount > max open allowed, limit if so
 		maxIdleConns = ConnParams.MaxOpen
 		MI := int(ConnParams.MaxIdle)
-		log("MaxIdle: Invalid amount - limiting to" + strconv.Itoa(MI))
+		log("MaxIdle: Invalid amount - limiting to " + strconv.Itoa(MI))
 	}
 
 	ConnParams.MaxIdle = maxIdleConns
 	MI = int(maxIdleConns)
-	log("Changing allowed MaxIdleConns to" + strconv.Itoa(MI))
+	log("Changing allowed MaxIdleConns to " + strconv.Itoa(MI))
 	db.SetMaxIdleConns(MI)
 }
 
 func LogDBConnSettings() { // Log current settings of db
-	log("MaxOpenConns:" + strconv.Itoa(int(ConnParams.MaxOpen)))
-	log("MaxIdleConns:" + strconv.Itoa(int(ConnParams.MaxIdle)))
-	log("MaxConnLifetimeMins:" + strconv.Itoa(int(ConnParams.MaxLifeTimeMins)))
+	log("Current connection settings:")
+	log("MaxOpenConns: " + strconv.Itoa(int(ConnParams.MaxOpen)))
+	log("MaxIdleConns: " + strconv.Itoa(int(ConnParams.MaxIdle)))
+	log("MaxConnLifetimeMins: " + strconv.Itoa(int(ConnParams.MaxLifeTimeMins)))
 }
