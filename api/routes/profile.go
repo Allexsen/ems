@@ -1,4 +1,4 @@
-package routes
+package routes // profiles
 
 import "github.com/gin-gonic/gin"
 

@@ -18,5 +18,5 @@ func Initialize(router *gin.Engine) {
 		c.String(200, "Login")
 	})
 
-	router.Run()
+	r.Run()
 }
