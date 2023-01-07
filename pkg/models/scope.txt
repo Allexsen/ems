@@ -1,0 +1,1 @@
+define struct models for system use

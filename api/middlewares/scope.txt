@@ -1,0 +1,1 @@
+configure authentication, validation and logging middlewares
