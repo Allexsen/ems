@@ -15,5 +15,5 @@ type Employee struct {
 	RetireDate  time.Time `db:"retirement_date" json:"retirement_date"`
 	EmpType     uint      `db:"employment_type" json:"employment_type"`
 	PositionID  uint      `db:"position_id" json:"position_id"`
-	RefCode     [20]byte  `db:"referral_code" json:"referral_code"`
+	RefCode     string    `db:"referral_code" json:"referral_code"`
 }
