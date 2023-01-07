@@ -43,7 +43,7 @@ func ConnectDB(mc uint, mo uint, mi uint, mlt uint) { // Connect to Database, se
 	}
 
 	defer func() {
-		db.Close()
+		// db.Close()
 		log("Closed & disconnected successfully..")
 	}()
 
