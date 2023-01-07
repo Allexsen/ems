@@ -22,7 +22,7 @@ type Conns struct { // Connection params
 }
 
 func log(msg string) { // Log DB msgs
-	fmt.Println("[MySQL]: " + msg)
+	fmt.Println("[MySQL] " + msg)
 }
 
 func ConnectDB(mc uint, mo uint, mi uint, mlt uint) { // Connect to Database, set DB params
@@ -41,11 +41,6 @@ func ConnectDB(mc uint, mo uint, mi uint, mlt uint) { // Connect to Database, se
 	if err != nil {
 		panic(err)
 	}
-
-	defer func() {
-		// db.Close()
-		log("Closed & disconnected successfully..")
-	}()
 
 	db = d
 	log("Connection established successfully at " + adrs)

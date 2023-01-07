@@ -14,9 +14,9 @@ func GetProfile(pid string) (*models.Employee, error) {
 		return nil, err
 	}
 
-	row := db.QueryRow("SELECT * FROM employees WHERE employee_id = ?", uint(id))
+	row := db.QueryRow("SELECT first_name, last_name, email FROM employees WHERE employee_id=?", id)
 	var employee models.Employee
-	err = row.Scan(&employee)
+	err = row.Scan(&employee.FirstName, &employee.LastName, &employee.Email)
 	if err != nil {
 		return nil, err
 	}
