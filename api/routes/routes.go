@@ -13,7 +13,7 @@ func Initialize(router *gin.Engine) {
 	gin.ForceConsoleColor()
 
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(301, "/auth")
+		c.String(200, "Login")
 	})
 
 	ref := r.Group("/referral")
