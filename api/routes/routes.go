@@ -9,9 +9,9 @@ var (
 )
 
 func Initialize(router *gin.Engine) {
-	initReferral()
-	initProfile()
 	r = router
+	initReferral(r)
+	initProfile(r)
 	gin.ForceConsoleColor()
 
 	r.GET("/", func(c *gin.Context) {

@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func initProfile() {
+func initProfile(r *gin.Engine) {
 	profile := r.Group("/profile")
 	{
 		profile.GET("", func(c *gin.Context) {

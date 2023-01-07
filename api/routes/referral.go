@@ -2,7 +2,7 @@ package routes // referrals
 
 import "github.com/gin-gonic/gin"
 
-func initReferral() {
+func initReferral(r *gin.Engine) {
 	ref := r.Group("/referral")
 	{
 		ref.GET("/validate", func(c *gin.Context) {
