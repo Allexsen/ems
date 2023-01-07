@@ -1,6 +1,10 @@
 package routes // profiles
 
 import (
+	"net/http"
+
+	prof_id "github.com/Allexsen/ems/api/middlewares/pid"
+	_ "github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,7 +16,12 @@ func initProfile(r *gin.Engine) {
 		})
 
 		profile.GET("/:pid", func(c *gin.Context) {
-			c.String(200, "Employee Profile")
+			employee, err := prof_id.GetProfile(c.Param("pid"))
+			if err != nil {
+				c.Abort()
+				panic(err)
+			}
+			c.JSON(http.StatusOK, employee)
 		})
 
 		profile.GET("/:pid/history", func(c *gin.Context) {
