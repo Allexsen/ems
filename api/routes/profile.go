@@ -27,6 +27,4 @@ func initProfile(r *gin.Engine) {
 			c.String(200, "Add Review")
 		})
 	}
-
-	r.Run()
 }

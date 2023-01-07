@@ -33,6 +33,4 @@ func initReferral(r *gin.Engine) {
 			c.String(200, "Registration")
 		})
 	}
-
-	r.Run()
 }
