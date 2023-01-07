@@ -33,4 +33,6 @@ func initReferral() {
 			c.String(200, "Registration")
 		})
 	}
+
+	r.Run()
 }

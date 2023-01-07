@@ -1,6 +1,8 @@
 package routes // profiles
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func initProfile() {
 	profile := r.Group("/profile")
@@ -25,4 +27,6 @@ func initProfile() {
 			c.String(200, "Add Review")
 		})
 	}
+
+	r.Run()
 }

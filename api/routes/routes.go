@@ -4,7 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var r *gin.Engine
+var (
+	r *gin.Engine
+)
 
 func Initialize(router *gin.Engine) {
 	initReferral()
@@ -16,5 +18,5 @@ func Initialize(router *gin.Engine) {
 		c.String(200, "Login")
 	})
 
-	r.Run()
+	router.Run()
 }
