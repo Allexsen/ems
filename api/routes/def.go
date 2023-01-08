@@ -2,6 +2,7 @@ package routes // define group routes
 
 import (
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,6 +12,9 @@ var (
 
 func Initialize(router *gin.Engine) {
 	r = router
+	store := cookie.NewStore([]byte("my-secret-key"))
+	r.Use(sessions.Sessions("my-session", store))
+
 	initReferral(r)
 	initProfile(r)
 	gin.ForceConsoleColor()
