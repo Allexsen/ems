@@ -15,8 +15,15 @@ func initReferral(r *gin.Engine) {
 			c.String(200, "Input Your Referral Code")
 		})
 
-		ref.POST("/validate/:referral", referralmw.ValidateReferral(), func(c *gin.Context) {
-			c.AbortWithStatus(http.StatusUnauthorized)
+		ref.POST("/validate/:referral", func(c *gin.Context) {
+			isValid := referralmw.ValidateReferral(c)
+			if isValid {
+				c.Request.Method = "GET"
+			} else {
+				c.AbortWithStatus(http.StatusUnauthorized)
+			}
+
+			c.Redirect(http.StatusTemporaryRedirect, "/referral/register")
 		})
 
 		ref.GET("/invalid", func(c *gin.Context) {
