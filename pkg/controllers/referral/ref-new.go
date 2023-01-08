@@ -19,7 +19,8 @@ func NewReferral() string {
 	}
 
 	db := database.GetDB()
-	db.Exec("INSERT INTO referrals(code) VALUES(?)", refCode)
+	referral := string(refCode[:])
+	db.Exec("INSERT INTO referrals(code) VALUES(?)", referral)
 
-	return string(refCode[:])
+	return referral
 }
