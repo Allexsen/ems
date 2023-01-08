@@ -17,7 +17,7 @@ func ValidateReferral() gin.HandlerFunc {
 		var isUsed bool
 		err := row.Scan(&isUsed)
 		if err != nil || isUsed {
-			c.String(http.StatusUnauthorized, "Invalid referral")
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid referral"})
 			return
 		}
 
