@@ -11,13 +11,13 @@ func ValidateReferral() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := database.GetDB()
 		referral := c.Param("referral")
-		q := "SELECT used FROM referrals WHERE code=" + referral
+		q := "SELECT is_used FROM referrals WHERE code=" + referral
 		row := db.QueryRow(q)
 
 		var isUsed bool
 		err := row.Scan(&isUsed)
 		if err != nil || isUsed {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid referral"})
+			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
 
