@@ -21,7 +21,7 @@ func Initialize(router *gin.Engine) {
 
 	r.GET("/", func(c *gin.Context) {
 		session := sessions.Default(c)
-		session.Set("user_id", "user")
+		session.Set("user_id", 2)
 		session.Set("firstname", "name")
 		session.Set("lastname", "surname")
 		session.Save()
