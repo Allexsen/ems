@@ -13,7 +13,7 @@ func initReferral(r *gin.Engine) {
 			c.String(200, "Input Your Referral Code")
 		})
 
-		ref.POST("/validate/:referral", referralmw.ValidateReferral((*gin.Context).Param("referral")), func(c *gin.Context) {
+		ref.POST("/validate/:referral", referralmw.ValidateReferral(), func(c *gin.Context) {
 
 			c.String(200, "Referral Validation")
 		})
