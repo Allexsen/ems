@@ -1,4 +1,4 @@
-package referral
+package referralmw
 
 import (
 	"net/http"
