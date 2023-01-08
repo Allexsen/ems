@@ -3,13 +3,14 @@ package routes // profiles
 import (
 	"net/http"
 
-	prof_id "github.com/Allexsen/ems/api/middlewares/pid"
+	prof_id "github.com/Allexsen/ems/pkg/controllers/pid"
 	_ "github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
 )
 
 func initProfile(r *gin.Engine) {
 	profile := r.Group("/profile")
+	profile.Use(CheckSession())
 	{
 		profile.GET("", func(c *gin.Context) {
 			c.String(200, "Self Profile")
