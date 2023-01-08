@@ -1,25 +1,21 @@
 package session
 
 import (
+	"net/http"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
-type ph struct {
-	ID        int    `json:"id"`
-	FirstName string `json:"firstname"`
-	LastName  string `json:"lastname"`
-}
-
 func CheckSession() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var user ph
 		session := sessions.Default(c)
-		session.Set("user_id", user.ID)
-		session.Set("firstname", user.FirstName)
-		session.Set("lastname", user.LastName)
-		session.Save()
+		userID := session.Get("user_id")
+		firstName := session.Get("firstname")
+		lastName := session.Get("lastname")
 
-		c.Next()
+		if userID == nil || firstName == nil || lastName == nil {
+			c.String(http.StatusUnauthorized, "Must be logged in")
+		}
 	}
 }

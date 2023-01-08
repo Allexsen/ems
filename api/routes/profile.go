@@ -3,17 +3,38 @@ package routes // profiles
 import (
 	"net/http"
 
+	session "github.com/Allexsen/ems/api/middlewares/sessions"
 	prof_id "github.com/Allexsen/ems/pkg/controllers/pid"
 	_ "github.com/Allexsen/ems/pkg/models"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
+type ph struct {
+	ID        int    `json:"id"`
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
+}
+
 func initProfile(r *gin.Engine) {
 	profile := r.Group("/profile")
-	profile.Use(CheckSession())
+	profile.Use(session.CheckSession())
 	{
 		profile.GET("", func(c *gin.Context) {
-			c.String(200, "Self Profile")
+
+			session := sessions.Default(c)
+			userID := session.Get("user_id")
+			firstName := session.Get("firstname")
+			lastName := session.Get("lastname")
+
+			user := ph{
+				ID:        userID.(int),
+				FirstName: firstName.(string),
+				LastName:  lastName.(string),
+			}
+
+			c.JSON(http.StatusAccepted, user)
+			// c.String(200, "Self Profile")
 		})
 
 		profile.GET("/:pid", func(c *gin.Context) {

@@ -1,6 +1,7 @@
 package routes // define group routes
 
 import (
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +16,11 @@ func Initialize(router *gin.Engine) {
 	gin.ForceConsoleColor()
 
 	r.GET("/", func(c *gin.Context) {
-		c.String(200, "Login")
+		session := sessions.Default(c)
+		session.Set("user_id", "user")
+		session.Set("firstname", "name")
+		session.Set("lastname", "surname")
+		session.Save()
 	})
 
 	r.Run()
