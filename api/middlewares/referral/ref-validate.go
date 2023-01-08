@@ -18,6 +18,7 @@ func ValidateReferral() gin.HandlerFunc {
 		err := row.Scan(&isUsed)
 		if err != nil || isUsed {
 			c.String(http.StatusUnauthorized, "Invalid referral")
+			return
 		}
 
 		c.Next()
