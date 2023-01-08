@@ -16,8 +16,9 @@ func ValidateReferral() gin.HandlerFunc {
 
 		var isUsed bool
 		err := row.Scan(&isUsed)
-		if err != nil || isUsed {
-			c.AbortWithStatus(http.StatusUnauthorized)
+		if err == nil && !isUsed {
+			c.Request.Method = "GET"
+			c.Redirect(http.StatusTemporaryRedirect, "/referral/register")
 			return
 		}
 

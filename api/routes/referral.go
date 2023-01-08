@@ -16,8 +16,7 @@ func initReferral(r *gin.Engine) {
 		})
 
 		ref.POST("/validate/:referral", referralmw.ValidateReferral(), func(c *gin.Context) {
-
-			c.Redirect(http.StatusTemporaryRedirect, "/referral/register")
+			c.AbortWithStatus(http.StatusUnauthorized)
 		})
 
 		ref.GET("/invalid", func(c *gin.Context) {
