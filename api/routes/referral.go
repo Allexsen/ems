@@ -1,6 +1,8 @@
 package routes // referrals
 
 import (
+	"net/http"
+
 	referralmw "github.com/Allexsen/ems/api/middlewares/referral"
 	"github.com/Allexsen/ems/pkg/controllers/referral"
 	"github.com/gin-gonic/gin"
@@ -15,7 +17,7 @@ func initReferral(r *gin.Engine) {
 
 		ref.POST("/validate/:referral", referralmw.ValidateReferral(), func(c *gin.Context) {
 
-			c.String(200, "Referral Validation")
+			c.Redirect(http.StatusAccepted, "/register")
 		})
 
 		ref.GET("/invalid", func(c *gin.Context) {
