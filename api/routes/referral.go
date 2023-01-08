@@ -1,6 +1,9 @@
 package routes // referrals
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/Allexsen/ems/pkg/controllers/referral"
+	"github.com/gin-gonic/gin"
+)
 
 func initReferral(r *gin.Engine) {
 	ref := r.Group("/referral")
@@ -18,7 +21,8 @@ func initReferral(r *gin.Engine) {
 		})
 
 		ref.GET("/new", func(c *gin.Context) {
-			c.String(200, "Generate Referral Code")
+			refCode := referral.NewReferral()
+			c.JSON(200, refCode)
 		})
 
 		ref.GET("/terminate", func(c *gin.Context) {
