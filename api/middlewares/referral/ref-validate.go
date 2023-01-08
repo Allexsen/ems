@@ -7,9 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ValidateReferral(referral string) gin.HandlerFunc {
+func ValidateReferral() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := database.GetDB()
+		referral := c.Param("referral")
 		q := "SELECT used FROM referrals WHERE code=" + referral
 		row := db.QueryRow(q)
 
