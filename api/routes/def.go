@@ -12,12 +12,12 @@ var (
 
 func Initialize(router *gin.Engine) {
 	r = router
+	gin.ForceConsoleColor()
 	store := cookie.NewStore([]byte("my-secret-key"))
 	r.Use(sessions.Sessions("my-session", store))
 
 	initReferral(r)
 	initProfile(r)
-	gin.ForceConsoleColor()
 
 	r.GET("/", func(c *gin.Context) {
 		session := sessions.Default(c)
