@@ -12,6 +12,8 @@ func initReferral(r *gin.Engine) {
 			c.String(200, "Referral Input HTML")
 		})
 
+		ref.GET("/:referral", referral.ValidateReferral)
+
 		ref.GET("/invalid", func(c *gin.Context) {
 			c.String(200, "Invalid Referral HTML")
 		})
@@ -25,8 +27,6 @@ func initReferral(r *gin.Engine) {
 		ref.DELETE("/terminate/:referral", func(c *gin.Context) {
 			c.String(200, "Referral Terminated")
 		})
-
-		ref.POST("/:referral", referral.ValidateReferral)
 
 		ref.GET("/register", func(c *gin.Context) {
 			c.String(200, "Registration Page HTML")

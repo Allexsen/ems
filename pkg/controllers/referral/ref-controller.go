@@ -8,12 +8,8 @@ import (
 )
 
 func ValidateReferral(c *gin.Context) {
-	db := database.GetDB()
-	referral := c.PostForm("referral")
-	q := "SELECT is_used FROM referrals WHERE code=?"
-	row := db.QueryRow(q, referral)
-
-	var isUsed bool
+	referral := c.Param("referral")
+	ok, err := GetReferral(referral)
 	err := row.Scan(&isUsed)
 	if err != nil || isUsed {
 		c.AbortWithStatus(http.StatusUnauthorized)
