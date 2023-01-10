@@ -3,6 +3,7 @@ package connection // Establish connection to the database
 import (
 	"database/sql"
 	"fmt"
+	"os"
 	"strconv"
 	"time"
 
@@ -31,11 +32,10 @@ func ConnectDB(mc uint, mo uint, mi uint, mlt uint) { // Connect to Database, se
 	ConnParams.MaxIdle = mi
 	ConnParams.MaxLifeTimeMins = mlt
 
-	// user := os.Getenv("SQL_USER")
-	// pswd := os.Getenv("SQL_PSWD")
+	user := os.Getenv("SQL_USER")
+	pswd := os.Getenv("SQL_PSWD")
 	adrs := "tcp(127.0.0.1:3306)"
-	// msn := user + ":" + pswd + "@" + adrs + "/sql_ems"
-	msn := "root:18001017853ASd!@tcp(127.0.0.1:3306)/sql_ems"
+	msn := user + ":" + pswd + "@" + adrs + "/sql_ems"
 
 	d, err := sql.Open("mysql", msn)
 	if err != nil {

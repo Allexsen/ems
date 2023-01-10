@@ -3,6 +3,8 @@ package referral
 import (
 	"fmt"
 	"net/http"
+	"os"
+	"path"
 
 	"github.com/Allexsen/ems/database"
 	"github.com/gin-gonic/gin"
@@ -16,10 +18,11 @@ func ValidateReferral(c *gin.Context) {
 		return
 	}
 
-	path := c.FullPath()
-	fmt.Println(path)
-
-	c.File("../../html/registration.html")
+	fullpath := os.Getenv("FP_EMS")
+	fmt.Println(fullpath)
+	fullpath = path.Join(fullpath, "html", "registration.html")
+	fmt.Println(fullpath)
+	c.File(fullpath)
 }
 
 func NewReferral(c *gin.Context) {
