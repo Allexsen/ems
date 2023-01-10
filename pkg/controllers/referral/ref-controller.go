@@ -14,7 +14,7 @@ func ValidateReferral(c *gin.Context) {
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 
-	c.String(200, "Referral: Valid")
+	c.File("../../../html/registration.html")
 }
 
 func NewReferral(c *gin.Context) {
