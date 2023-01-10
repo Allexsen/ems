@@ -13,7 +13,7 @@ func initReferral(r *gin.Engine) {
 			c.File("../../html/referral.html")
 		})
 
-		ref.POST("/validate", referral.ValidateReferral)
+		ref.POST("/val", referral.ValidateReferral)
 
 		ref.GET("/invalid", func(c *gin.Context) {
 			c.String(200, "Invalid Referral HTML")
