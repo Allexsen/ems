@@ -11,6 +11,7 @@ import (
 func ValidateReferral(c *gin.Context) {
 	fmt.Println("Referral Validation Invoked")
 	referral := c.Param("referral")
+	fmt.Println(referral)
 	ok, err := CheckReferral(referral)
 	if err != nil || !ok {
 		c.AbortWithStatus(http.StatusUnauthorized)
