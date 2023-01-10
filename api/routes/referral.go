@@ -1,9 +1,6 @@
 package routes // referrals
 
 import (
-	"net/http"
-
-	referralmw "github.com/Allexsen/ems/api/middlewares/referral"
 	"github.com/Allexsen/ems/pkg/controllers/referral"
 	"github.com/gin-gonic/gin"
 )
@@ -19,10 +16,7 @@ func initReferral(r *gin.Engine) {
 			c.String(200, "Invalid Referral Code")
 		})
 
-		ref.GET("/new", func(c *gin.Context) {
-			refCode := referral.NewReferral()
-			c.JSON(200, refCode)
-		})
+		ref.GET("/new", referral.NewReferral)
 
 		ref.GET("/terminate", func(c *gin.Context) {
 			c.String(200, "Active Referrals List")
@@ -32,9 +26,7 @@ func initReferral(r *gin.Engine) {
 			c.String(200, "Referral Terminated")
 		})
 
-		ref.GET("/:referral", referralmw.ValidateReferral(), func(c *gin.Context) {
-			c.Redirect(http.StatusTemporaryRedirect, "/referral/register")
-		})
+		ref.GET("/:referral", referral.ValidateReferral)
 
 		ref.GET("/register", func(c *gin.Context) {
 			c.String(200, "Registration Page")
