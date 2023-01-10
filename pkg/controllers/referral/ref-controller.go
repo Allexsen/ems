@@ -8,7 +8,7 @@ import (
 )
 
 func ValidateReferral(c *gin.Context) {
-	referral := c.PostForm("referral")
+	referral := c.Query("referral")
 	ok, err := CheckReferral(referral)
 	if err != nil || !ok {
 		c.AbortWithStatus(http.StatusUnauthorized)
