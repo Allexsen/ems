@@ -8,12 +8,12 @@ import (
 func initReferral(r *gin.Engine) {
 	ref := r.Group("/referral")
 	{
-		ref.GET("/validate", func(c *gin.Context) {
+		ref.GET("/", func(c *gin.Context) {
 			// c.String(200, "Referral Input HTML")
 			c.File("../../html/referral.html")
 		})
 
-		ref.POST("/validate", referral.ValidateReferral)
+		ref.GET("/validate", referral.ValidateReferral)
 
 		ref.GET("/invalid", func(c *gin.Context) {
 			c.String(200, "Invalid Referral HTML")
