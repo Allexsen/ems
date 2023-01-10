@@ -8,7 +8,7 @@ import (
 func initReferral(r *gin.Engine) {
 	ref := r.Group("/referral")
 	{
-		ref.GET("/", func(c *gin.Context) {
+		ref.GET("/validate", func(c *gin.Context) {
 			c.String(200, "Referral Input HTML")
 		})
 
