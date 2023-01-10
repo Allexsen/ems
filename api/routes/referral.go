@@ -9,10 +9,11 @@ func initReferral(r *gin.Engine) {
 	ref := r.Group("/referral")
 	{
 		ref.GET("/validate", func(c *gin.Context) {
-			c.String(200, "Referral Input HTML")
+			// c.String(200, "Referral Input HTML")
+			c.File("../../html/referral.html")
 		})
 
-		ref.GET("/:referral", referral.ValidateReferral)
+		ref.POST("/validate/", referral.ValidateReferral)
 
 		ref.GET("/invalid", func(c *gin.Context) {
 			c.String(200, "Invalid Referral HTML")
@@ -29,7 +30,8 @@ func initReferral(r *gin.Engine) {
 		})
 
 		ref.GET("/register", func(c *gin.Context) {
-			c.String(200, "Registration Page HTML")
+			// c.String(200, "Registration Page HTML")
+			c.File("../../html/registration.html")
 		})
 
 		ref.POST("/register", func(c *gin.Context) {

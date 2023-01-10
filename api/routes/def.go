@@ -25,7 +25,7 @@ func Initialize(router *gin.Engine) {
 		session.Set("firstname", "name")
 		session.Set("lastname", "surname")
 		session.Save()
-		c.HTML(200, "index.html", gin.H{})
+		c.File("../../html/index.html")
 	})
 
 	r.Run()
