@@ -1,7 +1,6 @@
 package referral
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"path"
@@ -18,9 +17,7 @@ func ValidateReferral(c *gin.Context) {
 		return
 	}
 
-	fullpath := path.Join(os.Getenv("HTML_DIR"), "/registration.html")
-	fmt.Println(fullpath)
-	c.File(fullpath)
+	c.File(path.Join(os.Getenv("HTML_DIR"), "/registration.html"))
 }
 
 func NewReferral(c *gin.Context) {
