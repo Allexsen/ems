@@ -9,13 +9,12 @@ import (
 
 func ValidateReferral(c *gin.Context) {
 	referral := c.Param("referral")
-	ok, err := GetReferral(referral)
-	err := row.Scan(&isUsed)
-	if err != nil || isUsed {
+	ok, err := CheckReferral(referral)
+	if err != nil || !ok {
 		c.AbortWithStatus(http.StatusUnauthorized)
-	} else {
-		c.String(200, "Referral: Valid")
 	}
+
+	c.String(200, "Referral: Valid")
 }
 
 func NewReferral(c *gin.Context) {
