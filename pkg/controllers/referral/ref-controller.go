@@ -10,7 +10,7 @@ import (
 
 func ValidateReferral(c *gin.Context) {
 	fmt.Println("Referral Validation Invoked")
-	referral := c.Param("referral")
+	referral := c.PostForm("referral")
 	fmt.Println(referral)
 	ok, err := CheckReferral(referral)
 	if err != nil || !ok {
