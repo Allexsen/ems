@@ -8,28 +8,28 @@ import (
 func initReferral(r *gin.Engine) {
 	ref := r.Group("/referral")
 	{
-		ref.GET("/validate", func(c *gin.Context) {
-			c.String(200, "Input Your Referral Code")
+		ref.GET("/", func(c *gin.Context) {
+			c.String(200, "Referral Input HTML")
 		})
 
 		ref.GET("/invalid", func(c *gin.Context) {
-			c.String(200, "Invalid Referral Code")
+			c.String(200, "Invalid Referral HTML")
 		})
 
 		ref.GET("/new", referral.NewReferral)
 
 		ref.GET("/terminate", func(c *gin.Context) {
-			c.String(200, "Active Referrals List")
+			c.String(200, "Active Referrals HTML")
 		})
 
 		ref.DELETE("/terminate/:referral", func(c *gin.Context) {
 			c.String(200, "Referral Terminated")
 		})
 
-		ref.GET("/:referral", referral.ValidateReferral)
+		ref.POST("/:referral", referral.ValidateReferral)
 
 		ref.GET("/register", func(c *gin.Context) {
-			c.String(200, "Registration Page")
+			c.String(200, "Registration Page HTML")
 		})
 
 		ref.POST("/register", func(c *gin.Context) {

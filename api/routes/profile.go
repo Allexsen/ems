@@ -33,8 +33,7 @@ func initProfile(r *gin.Engine) {
 				LastName:  lastName.(string),
 			}
 
-			c.JSON(http.StatusAccepted, user)
-			// c.String(200, "Self Profile")
+			c.JSON(200, user)
 		})
 
 		profile.GET("/:pid", func(c *gin.Context) {

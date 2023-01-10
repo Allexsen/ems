@@ -9,7 +9,7 @@ import (
 
 func ValidateReferral(c *gin.Context) {
 	db := database.GetDB()
-	referral := c.Param("referral")
+	referral := c.PostForm("referral")
 	q := "SELECT is_used FROM referrals WHERE code=?"
 	row := db.QueryRow(q, referral)
 
