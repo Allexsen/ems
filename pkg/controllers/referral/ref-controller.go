@@ -18,9 +18,7 @@ func ValidateReferral(c *gin.Context) {
 		return
 	}
 
-	fullpath := os.Getenv("FP_EMS")
-	fmt.Println(fullpath)
-	fullpath = path.Join(fullpath, "html", "registration.html")
+	fullpath := path.Join(os.Getenv("HTML_DIR"), "/registration.html")
 	fmt.Println(fullpath)
 	c.File(fullpath)
 }
