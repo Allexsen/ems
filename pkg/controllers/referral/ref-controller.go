@@ -9,17 +9,17 @@ import (
 )
 
 func ValidateReferral(c *gin.Context) {
-	fmt.Println("Referral Validation Invoked")
 	referral := c.PostForm("referral")
-	fmt.Println(referral)
 	ok, err := CheckReferral(referral)
 	if err != nil || !ok {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
 
-	fmt.Println("Reached c.File")
-	c.File("../../../html/registration.html")
+	path := c.FullPath()
+	fmt.Println(path)
+
+	c.File("../../html/registration.html")
 }
 
 func NewReferral(c *gin.Context) {
