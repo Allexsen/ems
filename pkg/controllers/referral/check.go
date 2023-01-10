@@ -1,6 +1,9 @@
 package referral
 
 import (
+	"fmt"
+	"strconv"
+
 	"github.com/Allexsen/ems/database"
 )
 
@@ -10,6 +13,8 @@ func CheckReferral(refCode string) (bool, error) {
 
 	var isUsed bool
 	err := row.Scan(&isUsed)
+	fmt.Println("isUsed value=" + strconv.FormatBool(isUsed))
+	fmt.Println("refCode=" + refCode)
 	if err != nil || isUsed {
 		return false, err
 	}

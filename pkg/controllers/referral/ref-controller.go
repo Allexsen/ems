@@ -1,6 +1,7 @@
 package referral
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Allexsen/ems/database"
@@ -8,12 +9,15 @@ import (
 )
 
 func ValidateReferral(c *gin.Context) {
+	fmt.Println("Referral Validation Invoked")
 	referral := c.Param("referral")
 	ok, err := CheckReferral(referral)
 	if err != nil || !ok {
 		c.AbortWithStatus(http.StatusUnauthorized)
+		return
 	}
 
+	fmt.Println("Reached c.File")
 	c.File("../../../html/registration.html")
 }
 
