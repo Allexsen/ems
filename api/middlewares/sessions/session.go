@@ -15,7 +15,8 @@ func CheckSession() gin.HandlerFunc {
 		lastName := session.Get("lastname")
 
 		if userID == nil || firstName == nil || lastName == nil {
-			c.String(http.StatusUnauthorized, "Must be logged in")
+			c.Redirect(http.StatusTemporaryRedirect, "/sign-in")
+			return
 		}
 	}
 }
