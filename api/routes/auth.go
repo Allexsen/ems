@@ -22,7 +22,7 @@ func initAuth(r *gin.Engine) {
 		})
 
 		auth.POST("/sign-up", func(c *gin.Context) {
-			c.Redirect(http.StatusTemporaryRedirect, "/profile/:pid")
+			c.Redirect(http.StatusSeeOther, "/profile/:pid")
 		})
 	}
 }

@@ -19,14 +19,14 @@ func Initialize(router *gin.Engine) {
 	store := cookie.NewStore([]byte("my-secret-key"))
 	r.Use(sessions.Sessions("my-session", store))
 
-	initAuth(r)
-	initProfile(r)
-	initReferral(r)
-
 	r.GET("/", func(c *gin.Context) {
 		fmt.Println("Hit '/'")
 		c.Redirect(http.StatusFound, "/profile/pid")
 	})
+
+	initAuth(r)
+	initProfile(r)
+	initReferral(r)
 
 	r.Run()
 }
