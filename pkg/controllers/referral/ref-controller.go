@@ -21,7 +21,7 @@ func ValidateReferral(c *gin.Context) {
 }
 
 func NewReferral(c *gin.Context) {
-	referral := getNewReferral()
+	referral := GetNewReferral()
 
 	db := database.GetDB()
 	db.Exec("INSERT INTO referrals(code) VALUES(?)", referral)

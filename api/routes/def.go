@@ -1,6 +1,8 @@
 package routes // define group routes
 
 import (
+	"net/http"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -16,16 +18,12 @@ func Initialize(router *gin.Engine) {
 	store := cookie.NewStore([]byte("my-secret-key"))
 	r.Use(sessions.Sessions("my-session", store))
 
-	initReferral(r)
+	initAuth(r)
 	initProfile(r)
+	initReferral(r)
 
 	r.GET("/", func(c *gin.Context) {
-		session := sessions.Default(c)
-		session.Set("user_id", 2)
-		session.Set("firstname", "name")
-		session.Set("lastname", "surname")
-		session.Save()
-		c.File("../../html/index.html")
+		c.Redirect(http.StatusPermanentRedirect, "/profile")
 	})
 
 	r.Run()
