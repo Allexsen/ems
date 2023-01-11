@@ -25,7 +25,7 @@ func Initialize(router *gin.Engine) {
 
 	r.GET("/", func(c *gin.Context) {
 		fmt.Println("Hit '/'")
-		c.Redirect(http.StatusTemporaryRedirect, "/profile/pid")
+		c.Redirect(http.StatusFound, "/profile/pid")
 	})
 
 	r.Run()
