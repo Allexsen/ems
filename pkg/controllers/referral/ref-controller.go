@@ -11,7 +11,7 @@ import (
 
 func ValidateReferral(c *gin.Context) {
 	referral := c.PostForm("referral")
-	ok, err := CheckReferral(referral)
+	ok, err := checkReferral(referral)
 	if err != nil || !ok {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
@@ -21,7 +21,7 @@ func ValidateReferral(c *gin.Context) {
 }
 
 func NewReferral(c *gin.Context) {
-	referral := GetNewReferral()
+	referral := getNewReferral()
 
 	db := database.GetDB()
 	db.Exec("INSERT INTO referrals(code) VALUES(?)", referral)

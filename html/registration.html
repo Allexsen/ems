@@ -7,11 +7,11 @@
     <title>Sign up</title>
 </head>
 <body>
-    <input type="text" placeholder="name">
-    <input type="password" placeholder="password">
-    <input type="number" placeholder="phone">
-    <input type="date" placeholder="birth date">
-    <input type="email" placeholder="email">
-    <a href="/profile">Sign up</a>
+    <form action="/referral/sign-up" method="post">
+        <input type="text" name="referral">
+        <input type="text" name="name">
+        <input type="password" name="password">
+        <input type="submit" value="Sign up">
+    </form>
 </body>
 </html>
