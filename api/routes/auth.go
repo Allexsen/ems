@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	authr "github.com/Allexsen/ems/api/middlewares/auth"
-	"github.com/Allexsen/ems/pkg/controllers/referral"
+	"github.com/Allexsen/ems/pkg/controllers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +15,7 @@ func initAuth(r *gin.Engine) {
 			c.File("../../html/index.html")
 		})
 
-		auth.POST("/sign-in", authr.CheckUser, func(c *gin.Context) {
+		auth.POST("/sign-in", authr.CheckUser(), func(c *gin.Context) {
 			c.Redirect(http.StatusSeeOther, "/profile/:pid")
 		})
 
@@ -23,7 +23,7 @@ func initAuth(r *gin.Engine) {
 			c.File("../../html/sign-up.html")
 		})
 
-		auth.POST("/sign-up", referral.ValidateReferral, func(c *gin.Context) {
+		auth.POST("/sign-up", controllers.ValidateReferral(), func(c *gin.Context) {
 			c.Redirect(http.StatusSeeOther, "/profile/:pid")
 		})
 	}

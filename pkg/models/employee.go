@@ -1,10 +1,14 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/Allexsen/ems/database"
+)
 
 type Employee struct {
 	ID          uint      `db:"employee_id" json:"id"`
-	FirstName   string    `db:"first_name" json:"firs_tname"`
+	FirstName   string    `db:"first_name" json:"first_name"`
 	LastName    string    `db:"last_name" json:"last_name"`
 	MiddleName  string    `db:"middle_name" json:"middle_name"`
 	Email       string    `db:"email" json:"email"`
@@ -16,4 +20,15 @@ type Employee struct {
 	EmpType     uint      `db:"employment_type" json:"employment_type"`
 	PositionID  uint      `db:"position_id" json:"position_id"`
 	RefCode     string    `db:"referral_code" json:"referral_code"`
+}
+
+func NewEmployee(employee Employee) error {
+	db := database.GetDB()
+	q := `INSERT INTO 
+			employees(first_name, last_name, middle_name, email, password, phone_number, manager_id, hire_date, empoyment_type, position_id, referral_code)
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+	_, err := db.Exec(q, employee.FirstName, employee.LastName, employee.MiddleName, employee.Email, employee.Password, employee.PhoneNumber,
+		employee.ManagerID, employee.HireDate, employee.EmpType, employee.PositionID, employee.RefCode)
+
+	return err
 }
