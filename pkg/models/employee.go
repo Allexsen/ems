@@ -25,10 +25,10 @@ type Employee struct {
 func NewEmployee(employee Employee) error {
 	db := database.GetDB()
 	q := `INSERT INTO 
-			employees(first_name, last_name, middle_name, email, password, phone_number, manager_id, hire_date, empoyment_type, position_id, referral_code)
-			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-	_, err := db.Exec(q, employee.FirstName, employee.LastName, employee.MiddleName, employee.Email, employee.Password, employee.PhoneNumber,
-		employee.ManagerID, employee.HireDate, employee.EmpType, employee.PositionID, employee.RefCode)
+			employees(first_name, last_name, middle_name, email, password, phone_number, hire_date, referral_code)
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?)`
+	_, err := db.Exec(q, employee.FirstName, employee.LastName, employee.MiddleName, employee.Email, employee.Password,
+		employee.PhoneNumber, employee.HireDate, employee.RefCode)
 
 	return err
 }
