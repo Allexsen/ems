@@ -17,7 +17,7 @@ func CheckUser() gin.HandlerFunc {
 
 		var pswdHash string
 		if err := row.Scan(&pswdHash); err != nil {
-			c.AbortWithError(http.StatusBadRequest, err)
+			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
 

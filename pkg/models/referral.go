@@ -21,3 +21,9 @@ func CheckReferral(refCode string) (bool, error) {
 
 	return true, nil
 }
+
+func NewReferral(referral string) error {
+	db := database.GetDB()
+	_, err := db.Exec("INSERT INTO referrals(code) VALUES(?)", referral)
+	return err
+}

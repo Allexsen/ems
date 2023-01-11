@@ -5,7 +5,6 @@ import (
 	"math/rand"
 	"net/http"
 
-	"github.com/Allexsen/ems/database"
 	"github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
 )
@@ -43,8 +42,11 @@ func NewReferral() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		referral := getNewReferral()
 
-		db := database.GetDB()
-		db.Exec("INSERT INTO referrals(code) VALUES(?)", referral)
+		err := models.NewReferral(referral)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+		}
+
 		c.String(200, referral)
 	}
 }
