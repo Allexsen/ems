@@ -13,11 +13,11 @@ func ValidateReferral(c *gin.Context) {
 	referral := c.PostForm("referral")
 	ok, err := checkReferral(referral)
 	if err != nil || !ok {
-		c.AbortWithStatus(http.StatusUnauthorized)
+		c.Redirect(http.StatusUnauthorized, "/sign-up")
 		return
 	}
 
-	c.File(path.Join(os.Getenv("HTML_DIR"), "/registration.html"))
+	c.File(path.Join(os.Getenv("HTML_DIR"), "/profile.html"))
 }
 
 func NewReferral(c *gin.Context) {
