@@ -22,8 +22,8 @@ func Initialize(router *gin.Engine) {
 	initProfile(r)
 	initReferral(r)
 
-	r.GET("", func(c *gin.Context) {
-		c.Redirect(http.StatusPermanentRedirect, "/profile/pid")
+	r.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusTemporaryRedirect, "/profile/pid")
 	})
 
 	r.Run()
