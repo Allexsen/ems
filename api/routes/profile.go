@@ -10,10 +10,6 @@ func initProfile(r *gin.Engine) {
 	profile := r.Group("/profile")
 	profile.Use(session.CheckSession())
 	{
-		profile.GET("", func(c *gin.Context) {
-			c.File("../../html/profile.html")
-		})
-
 		profile.GET("/:pid", func(c *gin.Context) {
 			c.File("../../html/profile.html")
 		})

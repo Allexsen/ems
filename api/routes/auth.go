@@ -1,6 +1,10 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 func initAuth(r *gin.Engine) {
 	auth := r.Group("/")
@@ -9,7 +13,7 @@ func initAuth(r *gin.Engine) {
 			c.File("../../html/index.html")
 		})
 
-		auth.POST("sign-in", func(c *gin.Context) {
+		auth.POST("/sign-in", func(c *gin.Context) {
 			c.File("../../html/profile.html")
 		})
 
@@ -18,7 +22,7 @@ func initAuth(r *gin.Engine) {
 		})
 
 		auth.POST("/sign-up", func(c *gin.Context) {
-			c.String(200, "Registration Submit")
+			c.Redirect(http.StatusTemporaryRedirect, "/profile")
 		})
 	}
 }
