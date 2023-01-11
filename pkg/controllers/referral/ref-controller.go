@@ -3,8 +3,6 @@ package referral
 import (
 	"fmt"
 	"net/http"
-	"os"
-	"path"
 
 	"github.com/Allexsen/ems/database"
 	"github.com/gin-gonic/gin"
@@ -19,7 +17,7 @@ func ValidateReferral(c *gin.Context) {
 		return
 	}
 
-	c.File(path.Join(os.Getenv("HTML_DIR"), "/profile.html"))
+	c.Next()
 }
 
 func NewReferral(c *gin.Context) {
