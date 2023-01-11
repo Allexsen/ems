@@ -14,7 +14,7 @@ func initAuth(r *gin.Engine) {
 			c.File("../../html/index.html")
 		})
 
-		auth.POST("/sign-in", func(c *gin.Context) {
+		auth.POST("/sign-in", auth.CheckUser, func(c *gin.Context) {
 			c.Redirect(http.StatusSeeOther, "/profile/:pid")
 		})
 
