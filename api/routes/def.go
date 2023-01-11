@@ -23,7 +23,7 @@ func Initialize(router *gin.Engine) {
 	initReferral(r)
 
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusPermanentRedirect, "/profile")
+		c.Redirect(http.StatusPermanentRedirect, "/profile/pid")
 	})
 
 	r.Run()
