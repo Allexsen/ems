@@ -1,6 +1,7 @@
 package referral
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"path"
@@ -13,7 +14,8 @@ func ValidateReferral(c *gin.Context) {
 	referral := c.PostForm("referral")
 	ok, err := checkReferral(referral)
 	if err != nil || !ok {
-		c.Redirect(http.StatusUnauthorized, "/sign-up")
+		fmt.Println(err)
+		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
 
