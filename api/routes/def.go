@@ -1,6 +1,7 @@
 package routes // define group routes
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
@@ -23,6 +24,7 @@ func Initialize(router *gin.Engine) {
 	initReferral(r)
 
 	r.GET("/", func(c *gin.Context) {
+		fmt.Println("Hit '/'")
 		c.Redirect(http.StatusTemporaryRedirect, "/profile/pid")
 	})
 

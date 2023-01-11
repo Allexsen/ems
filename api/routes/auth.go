@@ -14,8 +14,7 @@ func initAuth(r *gin.Engine) {
 		})
 
 		auth.POST("/sign-in", func(c *gin.Context) {
-			c.Request.Method = "GET"
-			c.Redirect(http.StatusTemporaryRedirect, "/profile/:pid")
+			c.Redirect(http.StatusSeeOther, "/profile/:pid")
 		})
 
 		auth.GET("/sign-up", func(c *gin.Context) {
