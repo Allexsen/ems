@@ -27,7 +27,7 @@ func GetEmployee() gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, empJSON)
+		c.JSON(http.StatusOK, string(empJSON))
 	}
 }
 
