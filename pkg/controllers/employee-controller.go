@@ -6,13 +6,14 @@ import (
 	"time"
 
 	"github.com/Allexsen/ems/pkg/models"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func GetEmployee() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		emp, err := models.GetEmployee(c.PostForm("email"))
+		emp, err := models.GetEmployee(sessions.Default(c).Get("email").(string))
 		if err != nil {
 			c.AbortWithStatus(http.StatusBadRequest)
 			return
