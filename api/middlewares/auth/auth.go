@@ -13,13 +13,11 @@ func CheckUser() gin.HandlerFunc {
 		password := c.PostForm("password")
 		pswdHash, err := models.AuthEmployee(c.PostForm("email"), password)
 		if err != nil {
-			c.Redirect(http.StatusBadRequest, "/sign-in")
-			c.Abort()
+			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 
 		if bcrypt.CompareHashAndPassword([]byte(pswdHash), []byte(password)) != nil {
-			c.Redirect(http.StatusUnauthorized, "/sign-in")
-			c.Abort()
+			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 
 		c.Next()
