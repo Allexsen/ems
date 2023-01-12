@@ -22,19 +22,29 @@ type Employee struct {
 	RefCode     string    `db:"referral_code" json:"referral_code"`
 }
 
-func NewEmployee(employee Employee) error {
+func GetEmployee(email string) (Employee, error) {
+	db := database.GetDB()
+	q := `SELECT first_name, middle_name, last_name, phone_number, position_id WHERE email=?`
+	row := db.QueryRow(q, email)
+	var emp Employee
+	err := row.Scan(&emp.FirstName, &emp.MiddleName, &emp.LastName, &emp.PhoneNumber, &emp.PositionID)
+
+	return emp, err
+}
+
+func NewEmployee(emp Employee) error {
 	db := database.GetDB()
 	// q := `INSERT INTO
-	// 		employees(first_name, last_name, middle_name, email, password, phone_number, hire_date, referral_code)
-	// 		VALUES(?, ?, ?, ?, ?, ?, ?, ?)`
-	// _, err := db.Exec(q, employee.FirstName, employee.LastName, employee.MiddleName, employee.Email, employee.Password,
-	// 	employee.PhoneNumber, employee.HireDate, employee.RefCode)
+	// 	employees(first_name, middle_name, last_name, email, password, phone_number, hire_date, referral_code)
+	// 	VALUES(?, ?, ?, ?, ?, ?, ?, ?)`
+	// _, err := db.Exec(q, emp.FirstName, emp.MiddleName, emp.LastName, emp.Email, emp.Password,
+	// 	emp.PhoneNumber, emp.HireDate, emp.RefCode)
 
 	q := `INSERT INTO 
-		employees(first_name, last_name, middle_name, email, password, phone_number, hire_date, employment_type, position_id, referral_code)
+		employees(first_name, middle_name, last_name, email, password, phone_number, hire_date, employment_type, position_id, referral_code)
 		VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-	_, err := db.Exec(q, employee.FirstName, employee.LastName, employee.MiddleName, employee.Email, employee.Password,
-		employee.PhoneNumber, employee.HireDate, employee.EmpType, employee.PositionID, employee.RefCode)
+	_, err := db.Exec(q, emp.FirstName, emp.MiddleName, emp.LastName, emp.Email, emp.Password,
+		emp.PhoneNumber, emp.HireDate, emp.EmpType, emp.PositionID, emp.RefCode)
 
 	return err
 }

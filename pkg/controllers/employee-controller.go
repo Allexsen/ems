@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"net/http"
 	"time"
 
@@ -10,7 +11,18 @@ import (
 )
 
 func GetEmployee(c *gin.Context) {
+	emp, err := models.GetEmployee(c.PostForm("email"))
+	if err != nil {
+		c.AbortWithStatus(http.StatusBadRequest)
+	}
 
+	empJSON, err := json.Marshal(emp)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+	}
+
+	c.JSON(http.StatusOK, empJSON)
+	c.File("/profile/:pid")
 }
 
 func NewEmployee(c *gin.Context) {
@@ -22,12 +34,12 @@ func NewEmployee(c *gin.Context) {
 	emp.MiddleName = c.PostForm("middlename")
 	emp.LastName = c.PostForm("lastname")
 	emp.PhoneNumber = c.PostForm("phone_number")
-	emp.HireDate = time.Now()
+	emp.HireDate = time.Now().UTC()
 
 	// THIS IS FOR TESTING PURPOSES, REMOVE LATER
 	emp.EmpType = 1
 	emp.PositionID = 1
-	// TIL HERE
+	// UP TO HERE
 
 	pswdHash, err := bcrypt.GenerateFromPassword([]byte(emp.Password), 10)
 	if err != nil {
