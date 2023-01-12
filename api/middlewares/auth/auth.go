@@ -1,6 +1,7 @@
 package authr
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Allexsen/ems/pkg/models"
@@ -11,13 +12,17 @@ import (
 func CheckUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		password := c.PostForm("password")
-		pswdHash, err := models.AuthEmployee(c.PostForm("email"), password)
+		pswdHash, err := models.AuthEmployee(c.PostForm("email"))
 		if err != nil {
+			fmt.Println(err)
 			c.AbortWithStatus(http.StatusUnauthorized)
+			return
 		}
 
-		if bcrypt.CompareHashAndPassword([]byte(pswdHash), []byte(password)) != nil {
+		if err := bcrypt.CompareHashAndPassword([]byte(pswdHash), []byte(password)); err != nil {
+			fmt.Println(err)
 			c.AbortWithStatus(http.StatusUnauthorized)
+			return
 		}
 
 		c.Next()
