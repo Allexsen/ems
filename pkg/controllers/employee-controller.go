@@ -7,14 +7,13 @@ import (
 	"time"
 
 	"github.com/Allexsen/ems/pkg/models"
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func GetEmployee() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		emp, err := models.GetEmployee(sessions.Default(c).Get("email").(string))
+		emp, err := models.GetEmployee(c.Param("pid"))
 		if err != nil {
 			fmt.Println(err)
 			c.AbortWithStatus(http.StatusBadRequest)
@@ -29,7 +28,6 @@ func GetEmployee() gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusOK, empJSON)
-		c.File("/profile/:pid")
 	}
 }
 
