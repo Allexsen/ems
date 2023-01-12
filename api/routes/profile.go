@@ -1,8 +1,6 @@
 package routes // profiles
 
 import (
-	"fmt"
-
 	session "github.com/Allexsen/ems/api/middlewares/sessions"
 	_ "github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
@@ -17,7 +15,6 @@ func initProfile(r *gin.Engine) {
 		})
 
 		profile.GET("/:pid", session.CheckSession(), func(c *gin.Context) {
-			fmt.Println("Hit :pid")
 			c.File("../../html/profile.html")
 		})
 
