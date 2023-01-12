@@ -9,18 +9,31 @@ import (
 
 func StoreSession() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		session := sessions.Default(c)
 
+		var count int
+		v := session.Get("count")
+		if v == nil {
+			count = 0
+		} else {
+			count = v.(int)
+			count++
+		}
+
+		session.Set("count", count)
+		session.Set("email", c.PostForm("email"))
+		session.Options(sessions.Options{
+			MaxAge: 3600 * 16, // 16 hours
+		})
+		session.Save()
 	}
 }
 
 func CheckSession() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
-		userID := session.Get("user_id")
-		firstName := session.Get("firstname")
-		lastName := session.Get("lastname")
 
-		if userID == nil || firstName == nil || lastName == nil {
+		if session.Get("email") == nil {
 			c.Redirect(http.StatusSeeOther, "/sign-in")
 			c.Abort()
 		}

@@ -15,8 +15,8 @@ var (
 func Initialize(router *gin.Engine) {
 	r = router
 	gin.ForceConsoleColor()
-	store := cookie.NewStore([]byte("my-secret-key"))
-	r.Use(sessions.Sessions("my-session", store))
+	store := cookie.NewStore([]byte("secret"))
+	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/profile/pid")
