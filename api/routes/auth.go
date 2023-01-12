@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	authr "github.com/Allexsen/ems/api/middlewares/auth"
+	session "github.com/Allexsen/ems/api/middlewares/session"
 	"github.com/Allexsen/ems/pkg/controllers"
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +16,7 @@ func initAuth(r *gin.Engine) {
 			c.File("../../html/index.html")
 		})
 
-		auth.POST("/sign-in", authr.CheckUser(), func(c *gin.Context) {
+		auth.POST("/sign-in", authr.CheckUser(), session.StoreSession(), func(c *gin.Context) {
 			c.Redirect(http.StatusFound, "/profile/:pid")
 		})
 

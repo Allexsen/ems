@@ -1,7 +1,7 @@
 package routes // profiles
 
 import (
-	session "github.com/Allexsen/ems/api/middlewares/sessions"
+	session "github.com/Allexsen/ems/api/middlewares/session"
 	"github.com/Allexsen/ems/pkg/controllers"
 	_ "github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
