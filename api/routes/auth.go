@@ -23,8 +23,6 @@ func initAuth(r *gin.Engine) {
 			c.File("../../html/sign-up.html")
 		})
 
-		auth.POST("/sign-up", controllers.ValidateReferral(), func(c *gin.Context) {
-			c.Redirect(http.StatusSeeOther, "/profile/:pid")
-		})
+		auth.POST("/sign-up", controllers.ValidateReferral(), controllers.NewEmployee)
 	}
 }
