@@ -3,28 +3,21 @@ package authr
 import (
 	"net/http"
 
-	"github.com/Allexsen/ems/database"
+	"github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func CheckUser() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		email := c.PostForm("email")
-
-		db := database.GetDB()
-		row := db.QueryRow("SELECT password FROM employees WHERE email=?", email)
-
-		var pswdHash string
-		if err := row.Scan(&pswdHash); err != nil {
-			c.AbortWithError(http.StatusUnauthorized, err)
-			return
+		password := c.PostForm("password")
+		pswdHash, err := models.AuthEmployee(c.PostForm("email"), password)
+		if err != nil {
+			c.AbortWithStatus(http.StatusBadRequest)
 		}
 
-		password := c.PostForm("password")
-		if err := bcrypt.CompareHashAndPassword([]byte(pswdHash), []byte(password)); err != nil {
-			c.AbortWithError(http.StatusUnauthorized, err)
-			return
+		if bcrypt.CompareHashAndPassword([]byte(pswdHash), []byte(password)) != nil {
+			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 
 		c.Next()

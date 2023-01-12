@@ -7,6 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func StoreSession() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+	}
+}
+
 func CheckSession() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
@@ -17,7 +23,6 @@ func CheckSession() gin.HandlerFunc {
 		if userID == nil || firstName == nil || lastName == nil {
 			c.Redirect(http.StatusSeeOther, "/sign-in")
 			c.Abort()
-			return
 		}
 
 		c.Next()

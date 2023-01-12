@@ -48,3 +48,14 @@ func NewEmployee(emp Employee) error {
 
 	return err
 }
+
+func AuthEmployee(email string, password string) (string, error) {
+	db := database.GetDB()
+	q := `SELECT password FROM employees WHERE email=?`
+	row := db.QueryRow(q, email)
+
+	var pswdHash string
+	err := row.Scan(pswdHash)
+
+	return pswdHash, err
+}
