@@ -9,6 +9,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+func GetEmployee(c *gin.Context) {
+
+}
+
 func NewEmployee(c *gin.Context) {
 	var emp models.Employee
 	emp.RefCode = c.PostForm("referral")

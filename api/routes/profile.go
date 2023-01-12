@@ -2,21 +2,20 @@ package routes // profiles
 
 import (
 	session "github.com/Allexsen/ems/api/middlewares/sessions"
+	"github.com/Allexsen/ems/pkg/controllers"
 	_ "github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
 )
 
 func initProfile(r *gin.Engine) {
 	profile := r.Group("/profile")
-	// profile.Use(session.CheckSession())
+	profile.Use(session.CheckSession())
 	{
 		profile.GET("/", func(c *gin.Context) {
 			c.File("../../html/profile.html")
 		})
 
-		profile.GET("/:pid", session.CheckSession(), func(c *gin.Context) {
-			c.File("../../html/profile.html")
-		})
+		profile.GET("/:pid", controllers.GetEmployee)
 
 		profile.GET("/:pid/history", func(c *gin.Context) {
 			c.File("../../html/work-history.html")
