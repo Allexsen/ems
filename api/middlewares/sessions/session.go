@@ -16,6 +16,7 @@ func CheckSession() gin.HandlerFunc {
 
 		if userID == nil || firstName == nil || lastName == nil {
 			c.Redirect(http.StatusSeeOther, "/sign-in")
+			c.Abort()
 			return
 		}
 
