@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -15,12 +16,14 @@ func GetEmployee() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		emp, err := models.GetEmployee(sessions.Default(c).Get("email").(string))
 		if err != nil {
+			fmt.Println(err)
 			c.AbortWithStatus(http.StatusBadRequest)
 			return
 		}
 
 		empJSON, err := json.Marshal(emp)
 		if err != nil {
+			fmt.Println(err)
 			c.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
