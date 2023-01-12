@@ -18,7 +18,7 @@ func CheckSession() gin.HandlerFunc {
 		if userID == nil || firstName == nil || lastName == nil {
 			fmt.Println("No session")
 			c.Redirect(http.StatusSeeOther, "/sign-in")
-			return
+			// return
 		}
 
 		fmt.Println("Hit c.Next()")
