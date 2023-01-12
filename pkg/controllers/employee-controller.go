@@ -10,21 +10,23 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func GetEmployee(c *gin.Context) {
-	emp, err := models.GetEmployee(c.PostForm("email"))
-	if err != nil {
-		c.AbortWithStatus(http.StatusBadRequest)
-		return
-	}
+func GetEmployee() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		emp, err := models.GetEmployee(c.PostForm("email"))
+		if err != nil {
+			c.AbortWithStatus(http.StatusBadRequest)
+			return
+		}
 
-	empJSON, err := json.Marshal(emp)
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
+		empJSON, err := json.Marshal(emp)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
 
-	c.JSON(http.StatusOK, empJSON)
-	c.File("/profile/:pid")
+		c.JSON(http.StatusOK, empJSON)
+		c.File("/profile/:pid")
+	}
 }
 
 func NewEmployee(c *gin.Context) {
