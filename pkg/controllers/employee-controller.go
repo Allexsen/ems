@@ -14,11 +14,13 @@ func GetEmployee(c *gin.Context) {
 	emp, err := models.GetEmployee(c.PostForm("email"))
 	if err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
+		return
 	}
 
 	empJSON, err := json.Marshal(emp)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
+		return
 	}
 
 	c.JSON(http.StatusOK, empJSON)
