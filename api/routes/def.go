@@ -2,6 +2,7 @@ package routes // define group routes
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -15,8 +16,8 @@ var (
 func Initialize(router *gin.Engine) {
 	r = router
 	gin.ForceConsoleColor()
-	store := cookie.NewStore([]byte("secret"))
-	r.Use(sessions.Sessions("mysession", store))
+	store := cookie.NewStore([]byte(os.Getenv("COOKIE_KEY")))
+	r.Use(sessions.Sessions("sessions", store))
 
 	r.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/profile/pid")

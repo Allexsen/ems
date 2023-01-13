@@ -22,9 +22,6 @@ func StoreSession() gin.HandlerFunc {
 
 		session.Set("count", count)
 		session.Set("email", c.PostForm("email"))
-		session.Options(sessions.Options{
-			MaxAge: 3600 * 16, // 16 hours
-		})
 		session.Save()
 	}
 }
