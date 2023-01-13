@@ -31,34 +31,36 @@ func GetEmployee() gin.HandlerFunc {
 	}
 }
 
-func NewEmployee(c *gin.Context) {
-	var emp models.Employee
-	emp.RefCode = c.PostForm("referral")
-	emp.Email = c.PostForm("email")
-	emp.Password = c.PostForm("password")
-	emp.FirstName = c.PostForm("firstname")
-	emp.MiddleName = c.PostForm("middlename")
-	emp.LastName = c.PostForm("lastname")
-	emp.PhoneNumber = c.PostForm("phone_number")
-	emp.HireDate = time.Now().UTC()
+func NewEmployee() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var emp models.Employee
+		emp.RefCode = c.PostForm("referral")
+		emp.Email = c.PostForm("email")
+		emp.Password = c.PostForm("password")
+		emp.FirstName = c.PostForm("firstname")
+		emp.MiddleName = c.PostForm("middlename")
+		emp.LastName = c.PostForm("lastname")
+		emp.PhoneNumber = c.PostForm("phone_number")
+		emp.HireDate = time.Now().UTC()
 
-	// THIS IS FOR TESTING PURPOSES, REMOVE LATER
-	emp.EmpType = 1
-	emp.PositionID = 1
-	// UP TO HERE
+		// THIS IS FOR TESTING PURPOSES, REMOVE LATER
+		emp.EmpType = 1
+		emp.PositionID = 1
+		// UP TO HERE
 
-	pswdHash, err := bcrypt.GenerateFromPassword([]byte(emp.Password), 10)
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
+		pswdHash, err := bcrypt.GenerateFromPassword([]byte(emp.Password), 10)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+
+		emp.Password = string(pswdHash)
+		err = models.NewEmployee(emp)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.Redirect(http.StatusSeeOther, "/profile/pid")
 	}
-
-	emp.Password = string(pswdHash)
-	err = models.NewEmployee(emp)
-	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, err)
-		return
-	}
-
-	c.Redirect(http.StatusSeeOther, "/profile/pid")
 }

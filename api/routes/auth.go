@@ -2,6 +2,7 @@ package routes
 
 import (
 	"net/http"
+	"os"
 
 	authr "github.com/Allexsen/ems/api/middlewares/auth"
 	session "github.com/Allexsen/ems/api/middlewares/session"
@@ -24,6 +25,10 @@ func initAuth(r *gin.Engine) {
 			c.File("../../html/sign-up.html")
 		})
 
-		auth.POST("/sign-up", controllers.ValidateReferral(), controllers.NewEmployee)
+		auth.POST("/sign-up", controllers.ValidateReferral(), controllers.NewEmployee())
+
+		auth.GET("/logout", session.Logout(), func(c *gin.Context) {
+			c.File(os.Getenv("HTML_DIR") + "/index.html")
+		})
 	}
 }
