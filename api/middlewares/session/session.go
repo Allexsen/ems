@@ -11,7 +11,6 @@ func StoreSession() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 
-		session.Set("email", c.PostForm("email"))
 		session.Set("authenticated", "true")
 		session.Save()
 	}
@@ -21,11 +20,7 @@ func CheckSession() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 
-		if session.Get("email") == nil {
-			c.AbortWithStatus(http.StatusUnauthorized)
-		}
-
-		if session.Get("authenticated") == "false" {
+		if session.Get("authenticated") != "true" {
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 
