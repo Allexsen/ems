@@ -2,7 +2,6 @@ package session
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -23,12 +22,10 @@ func CheckSession() gin.HandlerFunc {
 		session := sessions.Default(c)
 
 		if session.Get("email") == nil {
-			c.File(os.Getenv("HTML_DIR") + "/index.html")
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 
 		if session.Get("authenticated") == "false" {
-			c.File(os.Getenv("HTML_DIR") + "/index.html")
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 
