@@ -27,7 +27,7 @@ func CheckSession() gin.HandlerFunc {
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 
-		if session.Get("authenticated") == false {
+		if !session.Get("authenticated").(bool) {
 			c.File(os.Getenv("HTML_DIR") + "/index.html")
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
