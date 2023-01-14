@@ -27,7 +27,7 @@ func NewReferral(referral string) error {
 
 func TerminateReferral(referral string) error {
 	db := database.GetDB()
-	_, err := db.Exec("REMOVE FROM referrals WHERE referral=?", referral)
+	_, err := db.Exec("REMOVE FROM referrals WHERE referral='?'", referral)
 
 	return err
 }
