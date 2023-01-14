@@ -20,7 +20,7 @@ func Initialize(router *gin.Engine) {
 	r.Use(sessions.Sessions("sessions", store))
 
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusFound, "/profile/pid")
+		c.Redirect(http.StatusFound, "/profile/asvanidze12@gmail.com")
 	})
 
 	initAuth(r)
