@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
@@ -34,14 +33,12 @@ func GetEmployee() gin.HandlerFunc {
 func NewEmployee() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var emp models.Employee
-		emp.RefCode = c.PostForm("referral")
 		emp.Email = c.PostForm("email")
 		emp.Password = c.PostForm("password")
 		emp.FirstName = c.PostForm("firstname")
 		emp.MiddleName = c.PostForm("middlename")
 		emp.LastName = c.PostForm("lastname")
 		emp.PhoneNumber = c.PostForm("phone_number")
-		emp.HireDate = time.Now().UTC()
 
 		// THIS IS FOR TESTING PURPOSES, REMOVE LATER
 		emp.EmpType = 1

@@ -10,12 +10,9 @@ type Referral struct {
 
 func CheckReferral(refCode string) (bool, error) {
 	db := database.GetDB()
-	row := db.QueryRow("SELECT is_used FROM referrals WHERE ref_code=?", refCode)
-
-	var isUsed bool
-	err := row.Scan(&isUsed)
-
-	if err != nil || isUsed {
+	row := db.QueryRow("SELECT * FROM referrals WHERE referral=?", refCode)
+	err := row.Scan(&refCode)
+	if err != nil {
 		return false, err
 	}
 
@@ -24,6 +21,6 @@ func CheckReferral(refCode string) (bool, error) {
 
 func NewReferral(referral string) error {
 	db := database.GetDB()
-	_, err := db.Exec("INSERT INTO referrals(code) VALUES(?)", referral)
+	_, err := db.Exec("INSERT INTO referrals(referral) VALUES(?)", referral)
 	return err
 }
