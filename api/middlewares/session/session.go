@@ -21,7 +21,8 @@ func CheckSession() gin.HandlerFunc {
 		session := sessions.Default(c)
 
 		if session.Get("authenticated") != "true" {
-			c.AbortWithStatus(http.StatusUnauthorized)
+			c.Redirect(http.StatusSeeOther, "/sign-in")
+			c.Abort()
 		}
 
 		c.Next()
