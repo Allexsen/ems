@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
+	"time"
 
 	"github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,7 @@ func getNewReferral() string {
 	// chance of having duplicate is
 	// (number of existing referrals)/62^62
 	// Basically impossible
+	rand.Seed(time.Now().Unix())
 	var refCode [20]byte
 	for K := 0; K < 20; K++ {
 		refCode[K] = charSet[rand.Intn(len(charSet))]
