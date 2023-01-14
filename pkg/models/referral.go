@@ -5,7 +5,7 @@ import "github.com/Allexsen/ems/database"
 type Referral struct {
 	Code     string `db:"ref_code" json:"referral"`
 	IsUsed   bool   `db:"is_used" json:"is_used"`
-	UsedByID uint   `db:"used_by_id" json:"used_by_id"`
+	UsedByID int    `db:"used_by_id" json:"used_by_id"`
 }
 
 func CheckReferral(refCode string) (bool, error) {
