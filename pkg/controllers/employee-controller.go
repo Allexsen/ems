@@ -58,6 +58,7 @@ func NewEmployee() gin.HandlerFunc {
 			return
 		}
 
-		c.Redirect(http.StatusSeeOther, "/profile/pid")
+		models.TerminateReferral(c.PostForm("referral"))
+		c.Redirect(http.StatusSeeOther, "/profile/"+emp.Email)
 	}
 }
