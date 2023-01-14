@@ -36,7 +36,7 @@ func NewEmployee(emp Employee) error {
 	// 	emp.PhoneNumber, emp.HireDate, emp.RefCode)
 
 	q := `INSERT INTO 
-		employees(first_name, middle_name, last_name, email, password, phone_number, hire_date, employment_type, position_id)
+		employees(first_name, middle_name, last_name, email, password, phone_number, employment_type, position_id)
 		VALUES(?, ?, ?, ?, ?, ?, ?, ?)`
 	_, err := db.Exec(q, emp.FirstName, emp.MiddleName, emp.LastName, emp.Email, emp.Password,
 		emp.PhoneNumber, emp.EmpType, emp.PositionID)

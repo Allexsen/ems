@@ -18,7 +18,7 @@ func initAuth(r *gin.Engine) {
 		})
 
 		auth.POST("/sign-in", authr.CheckUser(), session.StoreSession(), func(c *gin.Context) {
-			c.Redirect(http.StatusFound, "/profile/:pid")
+			c.Redirect(http.StatusFound, "/profile/"+c.PostForm("email"))
 		})
 
 		auth.GET("/sign-up", func(c *gin.Context) {
