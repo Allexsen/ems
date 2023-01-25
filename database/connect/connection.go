@@ -34,8 +34,8 @@ func ConnectDB(mc int, mo int, mi int, mlt int) { // Connect to Database, set DB
 
 	user := os.Getenv("SQL_USER")
 	pswd := os.Getenv("SQL_PSWD")
-	adrs := "tcp(127.0.0.1:3306)"
-	msn := user + ":" + pswd + "@" + adrs + "/sql_ems"
+	adrs := os.Getenv("SQL_ADRS")
+	msn := user + ":" + pswd + "@tcp(" + adrs + ")/sql_ems"
 
 	d, err := sql.Open("mysql", msn)
 	if err != nil {

@@ -9,12 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	r *gin.Engine
-)
-
-func Initialize(router *gin.Engine) {
-	r = router
+func Initialize(r *gin.Engine) {
 	gin.ForceConsoleColor()
 	store := cookie.NewStore([]byte(os.Getenv("COOKIE_KEY")))
 	r.Use(sessions.Sessions("sessions", store))
