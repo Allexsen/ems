@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func initProfile(r *gin.Engine) {
+func initProfile() {
 	profile := r.Group("/profile")
 	profile.Use(session.CheckSession())
 	{

@@ -19,7 +19,6 @@ func StoreSession() gin.HandlerFunc {
 func CheckSession() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
-
 		if session.Get("authenticated") != "true" {
 			c.Redirect(http.StatusSeeOther, "/sign-in")
 			c.Abort()

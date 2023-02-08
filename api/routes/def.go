@@ -9,18 +9,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Initialize(r *gin.Engine) {
-	gin.ForceConsoleColor()
-	store := cookie.NewStore([]byte(os.Getenv("COOKIE_KEY")))
-	r.Use(sessions.Sessions("sessions", store))
+var (
+	r     *gin.Engine
+	store cookie.Store
+)
 
+func init() {
+	gin.ForceConsoleColor()
+	r = gin.Default()
+	r.SetTrustedProxies(nil)
+
+	initAuth()
+	initProfile()
+	initReferral()
+
+	store = cookie.NewStore([]byte(os.Getenv("COOKIE_KEY")))
+	r.Use(sessions.Sessions("sessions", store))
+}
+
+func Initialize() {
 	r.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/profile/asvanidze12")
 	})
-
-	initAuth(r)
-	initProfile(r)
-	initReferral(r)
 
 	r.Run()
 }

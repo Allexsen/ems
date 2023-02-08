@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func initReferral(r *gin.Engine) {
+func initReferral() {
 	ref := r.Group("/referral")
 	{
 		ref.GET("/new", controllers.NewReferral())

@@ -5,12 +5,10 @@ import (
 
 	"github.com/Allexsen/ems/api/routes"
 	"github.com/Allexsen/ems/database"
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	router := gin.Default()
-	routes.Initialize(router)
+	routes.Initialize()
 
 	db := database.GetDB()
 	defer func() {

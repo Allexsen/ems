@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func initAuth(r *gin.Engine) {
+func initAuth() {
 	auth := r.Group("/")
 	{
 		auth.GET("/sign-in", func(c *gin.Context) {
@@ -18,7 +18,17 @@ func initAuth(r *gin.Engine) {
 		})
 
 		auth.POST("/sign-in", authr.CheckUser(), session.StoreSession(), func(c *gin.Context) {
-			c.Redirect(http.StatusFound, "/profile/"+c.PostForm("email"))
+			var email []byte
+			em := c.PostForm("email")
+			for _, K := range em {
+				if em[K] == '@' {
+					break
+				}
+
+				email[K] = em[K]
+			}
+
+			c.Redirect(http.StatusFound, "/profile/"+string(email))
 		})
 
 		auth.GET("/sign-up", func(c *gin.Context) {
