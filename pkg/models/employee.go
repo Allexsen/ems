@@ -17,10 +17,12 @@ type Employee struct {
 	PositionID  int    `db:"position_id" json:"position_id"`
 }
 
-func GetEmployee(email string) (Employee, error) {
+func GetEmployee(pid string) (Employee, error) {
 	db := database.GetDB()
 	q := `SELECT first_name, middle_name, last_name, phone_number FROM employees WHERE email=?`
+	email := pid + "@gmail.com"
 	row := db.QueryRow(q, email)
+
 	var emp Employee
 	err := row.Scan(&emp.FirstName, &emp.MiddleName, &emp.LastName, &emp.PhoneNumber)
 
@@ -29,11 +31,6 @@ func GetEmployee(email string) (Employee, error) {
 
 func NewEmployee(emp Employee) error {
 	db := database.GetDB()
-	// q := `INSERT INTO
-	// 	employees(first_name, middle_name, last_name, email, password, phone_number, hire_date, referral_code)
-	// 	VALUES(?, ?, ?, ?, ?, ?, ?, ?)`
-	// _, err := db.Exec(q, emp.FirstName, emp.MiddleName, emp.LastName, emp.Email, emp.Password,
-	// 	emp.PhoneNumber, emp.HireDate, emp.RefCode)
 
 	q := `INSERT INTO 
 		employees(first_name, middle_name, last_name, email, password, phone_number, employment_type, position_id)

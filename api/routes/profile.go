@@ -1,4 +1,4 @@
-package routes // profiles
+package routes
 
 import (
 	session "github.com/Allexsen/ems/api/middlewares/session"

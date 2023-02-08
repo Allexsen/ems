@@ -1,4 +1,4 @@
-package routes // referrals
+package routes
 
 import (
 	"github.com/Allexsen/ems/pkg/controllers"

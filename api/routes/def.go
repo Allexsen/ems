@@ -1,4 +1,4 @@
-package routes // define group routes
+package routes
 
 import (
 	"net/http"
@@ -15,7 +15,7 @@ func Initialize(r *gin.Engine) {
 	r.Use(sessions.Sessions("sessions", store))
 
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusFound, "/profile/asvanidze12@gmail.com")
+		c.Redirect(http.StatusFound, "/profile/asvanidze12")
 	})
 
 	initAuth(r)
