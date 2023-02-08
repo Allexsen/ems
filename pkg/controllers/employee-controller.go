@@ -60,6 +60,5 @@ func NewEmployee() gin.HandlerFunc {
 
 		fmt.Println("Termination Hit")
 		models.TerminateReferral(c.PostForm("referral"))
-		c.Redirect(http.StatusSeeOther, "/profile/")
 	}
 }
