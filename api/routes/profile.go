@@ -1,7 +1,6 @@
 package routes
 
 import (
-	session "github.com/Allexsen/ems/api/middlewares/session"
 	"github.com/Allexsen/ems/pkg/controllers"
 	_ "github.com/Allexsen/ems/pkg/models"
 	"github.com/gin-gonic/gin"
@@ -9,7 +8,8 @@ import (
 
 func initProfile() {
 	profile := r.Group("/profile")
-	profile.Use(session.CheckSession())
+	// This needs to be fixes asap
+	// profile.Use(session.CheckSession())
 	{
 		profile.GET("/", func(c *gin.Context) {
 			c.File("../../html/profile.html")
