@@ -8,11 +8,11 @@ import (
 
 func initProfile() {
 	profile := r.Group("/profile")
-	// This needs to be fixes asap
+	// This needs to be fixed
 	// profile.Use(session.CheckSession())
 	{
 		profile.GET("/", func(c *gin.Context) {
-			c.File("../../html/profile.html")
+			c.File("../../html/profile.html") // Should be replaced with id of the user and redirected to "/:pid"
 		})
 
 		profile.GET("/:pid", controllers.GetEmployee())
