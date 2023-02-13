@@ -18,24 +18,14 @@ func initAuth() {
 		})
 
 		auth.POST("/sign-in", authr.CheckUser(), session.StoreSession(), func(c *gin.Context) {
-			var email []byte
-			em := c.PostForm("email")
-			for _, K := range em {
-				if em[K] == '@' {
-					break
-				}
-
-				email[K] = em[K]
-			}
-
-			c.Redirect(http.StatusFound, "/profile/"+string(email))
+			c.Redirect(http.StatusFound, "/")
 		})
 
 		auth.GET("/sign-up", func(c *gin.Context) {
 			c.File("../../html/sign-up.html")
 		})
 
-		auth.POST("/sign-up", controllers.ValidateReferral(), controllers.NewEmployee(), session.StoreSession(), func(c *gin.Context) {
+		auth.POST("/sign-up", controllers.ValidateReferral, controllers.NewEmployee, session.StoreSession(), func(c *gin.Context) {
 			c.Redirect(http.StatusSeeOther, "/profile/")
 		})
 

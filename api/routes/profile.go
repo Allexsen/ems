@@ -15,7 +15,7 @@ func initProfile() {
 			c.File("../../html/profile.html") // Should be replaced with id of the user and redirected to "/:pid"
 		})
 
-		profile.GET("/:pid", controllers.GetEmployee())
+		profile.GET("/:pid", controllers.GetEmployee)
 
 		profile.GET("/:pid/history", func(c *gin.Context) {
 			c.File("../../html/work-history.html")

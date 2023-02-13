@@ -8,7 +8,7 @@ import (
 func initReferral() {
 	ref := r.Group("/referral")
 	{
-		ref.GET("/new", controllers.NewReferral())
+		ref.GET("/new", controllers.NewReferral)
 
 		ref.GET("/terminate", func(c *gin.Context) {
 			c.String(200, "Active Referrals HTML")

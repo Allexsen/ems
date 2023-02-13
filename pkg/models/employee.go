@@ -19,9 +19,8 @@ type Employee struct {
 
 func GetEmployee(pid string) (Employee, error) {
 	db := database.GetDB()
-	q := `SELECT first_name, middle_name, last_name, phone_number FROM employees WHERE email=?`
-	email := pid + "@gmail.com"
-	row := db.QueryRow(q, email)
+	q := `SELECT first_name, middle_name, last_name, phone_number FROM employees WHERE id=?`
+	row := db.QueryRow(q, pid)
 
 	var emp Employee
 	err := row.Scan(&emp.FirstName, &emp.MiddleName, &emp.LastName, &emp.PhoneNumber)

@@ -26,29 +26,25 @@ func getNewReferral() string {
 	return string(refCode[:])
 }
 
-func ValidateReferral() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		referral := c.PostForm("referral")
-		ok, err := models.CheckReferral(referral)
-		if err != nil || !ok {
-			fmt.Println(err)
-			c.AbortWithStatus(http.StatusUnauthorized)
-			return
-		}
-
-		c.Next()
+func ValidateReferral(c *gin.Context) {
+	referral := c.PostForm("referral")
+	ok, err := models.CheckReferral(referral)
+	if err != nil || !ok {
+		fmt.Println(err)
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
 	}
+
+	c.Next()
 }
 
-func NewReferral() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		referral := getNewReferral()
+func NewReferral(c *gin.Context) {
+	referral := getNewReferral()
 
-		err := models.NewReferral(referral)
-		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, err)
-		}
-
-		c.String(200, referral)
+	err := models.NewReferral(referral)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
 	}
+
+	c.String(200, referral)
 }
