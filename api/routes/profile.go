@@ -17,9 +17,7 @@ func initProfile() {
 
 		profile.GET("/:pid", controllers.GetEmployee)
 
-		profile.GET("/:pid/history", func(c *gin.Context) {
-			c.File("../../html/work-history.html")
-		})
+		profile.GET("/:pid/history", controllers.GetWorkRecords)
 
 		profile.GET("/:pid/reviews", func(c *gin.Context) {
 			c.File("../../html/reviews.html")
