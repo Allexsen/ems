@@ -19,7 +19,7 @@ type Employee struct {
 
 func GetEmployee(pid string) (Employee, error) {
 	db := database.GetDB()
-	q := `SELECT first_name, middle_name, last_name, phone_number FROM employees WHERE id=?`
+	q := `SELECT first_name, middle_name, last_name, phone_number FROM employees WHERE employee_id=?`
 	row := db.QueryRow(q, pid)
 
 	var emp Employee

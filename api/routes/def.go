@@ -14,23 +14,20 @@ var (
 	store cookie.Store
 )
 
-func init() {
+func InitDef() {
 	gin.ForceConsoleColor()
 	r = gin.Default()
 	r.SetTrustedProxies(nil)
 
-	initDef()
+	store = cookie.NewStore([]byte(os.Getenv("COOKIE_KEY")))
+	r.Use(sessions.Sessions("sessions", store))
+
 	initAuth()
 	initProfile()
 	initReferral()
 
-	store = cookie.NewStore([]byte(os.Getenv("COOKIE_KEY")))
-	r.Use(sessions.Sessions("sessions", store))
-}
-
-func initDef() {
 	r.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusFound, "/profile/asvanidze12")
+		c.Redirect(http.StatusFound, "/profile/7")
 	})
 
 	r.Run()
