@@ -8,12 +8,12 @@ import (
 )
 
 type WorkRecord struct {
-	ID          int       `db:"record_id"`
-	EmployeeID  int       `db:"employee_id"`
-	Position    string    `db:"position"`
-	Description string    `db:"description"`
-	From        time.Time `db:"start_date"`
-	To          time.Time `db:"end_date"`
+	ID          int       `db:"record_id" json:"-"`
+	EmployeeID  int       `db:"employee_id" json:"-"`
+	Position    string    `db:"position" json:"position"`
+	Description string    `db:"description" json:"description"`
+	From        time.Time `db:"start_date" json:"from"`
+	To          time.Time `db:"end_date" json:"to"`
 }
 
 func GetWorkRecords(pidstr string) (WorkRecord, error) {
